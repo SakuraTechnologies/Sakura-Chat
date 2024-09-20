@@ -1,12 +1,13 @@
 package sakuratech.chat.network;
 
+import java.io.IOException;
+
 public interface IVpn {
 
     /**
      * 连接到特定频道
-     * @param port
      */
-    String Connector(int port);
+    String Connector(int port) throws IOException;
 
     /**
      * 频道掉线
