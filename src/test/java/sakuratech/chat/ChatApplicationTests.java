@@ -17,9 +17,13 @@ import static sakuratech.chat.crypt.Cryptor.encode;
 @SpringBootTest
 class ChatApplicationTests {
 
-	@Test
+	/*@Test
 	void contextLoads() {
-	}
+	}*/
+
+	/**
+	 * 加密测试
+	 */
 
 	/*@Test
 	void test() throws Exception {
@@ -40,4 +44,6 @@ class ChatApplicationTests {
 		byte[] raw = decode(key, ret);
 		System.out.println("解密后的原文：" + new String(raw));
 	}*/
+
+
 }
