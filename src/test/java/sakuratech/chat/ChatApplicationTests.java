@@ -1,18 +1,6 @@
 package sakuratech.chat;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import sakuratech.chat.crypt.Cryptor;
-
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.util.Base64;
-
-
-import static sakuratech.chat.crypt.Cryptor.decode;
-import static sakuratech.chat.crypt.Cryptor.encode;
 
 @SpringBootTest
 class ChatApplicationTests {

@@ -22,7 +22,10 @@ public interface IVpn {
 
     /**
      * 状态
+     * 0 => connected
+     * 1 => failed to connect
+     * 2 => exception disconnected
      */
 
-    int State();
+    Object State(int traffic);
 }
