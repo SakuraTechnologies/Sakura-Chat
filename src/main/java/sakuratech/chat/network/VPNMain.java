@@ -10,6 +10,7 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -44,10 +45,11 @@ public class VPNMain extends Cryptor implements IVpn, DBInfo{
                     State(0);
                 } else if (key.isReadable()) {
                     String msg = handleRead(key);
+                    String[] usrname = msg.split(":");
                     State(0);
                     PostgreSQLController db = new PostgreSQLController();
                     Connection connect = db.Connector(DB_URL, DB_USER, DB_PASSWORD);
-                    db.Insert(connect, "test", msg);
+                    db.Insert(connect, Arrays.toString(usrname), msg);
                 }
                 iterator.remove();
             }

@@ -36,9 +36,27 @@ public class WebSocket {
         String message = new String(data);
         System.out.println("Received message from client: " + message);
 
-        // Send response back to the client
-        sendResponse(socketChannel, "Message received: " + message);
+        // Extract username and message content
+        String[] result = extractUsernameAndContent(message);
+        if (result == null || result.length != 2) {
+            System.out.println("Invalid message format: " + message);
+            return "";
+        }
+        String username = result[0];
+        String content = result[1];
+
+        // Send response back to the client with username
+        String response = "Message received from " + username + ": " + content;
+        sendResponse(socketChannel, response);
         return message;
+    }
+
+    private static String[] extractUsernameAndContent(String message) {
+        String[] parts = message.split(": ");
+        if (parts.length != 2) {
+            return null;
+        }
+        return parts;
     }
 
     private static void sendHandshakeResponse(SocketChannel socketChannel) throws IOException {
