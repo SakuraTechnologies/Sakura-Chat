@@ -6,14 +6,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class ChatApplicationTests {
 
-	/*@Test
-	void contextLoads() {
-	}*/
-
-	/**
-	 * 加密测试
-	 */
-
+//	/*@Test
+//	void contextLoads() {
+//	}*/
+//
+//	/**
+//	 * 加密测试
+//	 */
+//
 //	@Test
 //	void test() throws Exception {
 //	Cryptor crypt;

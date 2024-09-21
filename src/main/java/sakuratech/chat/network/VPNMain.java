@@ -11,7 +11,6 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.security.SecureRandom;
 import java.sql.Connection;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.Iterator;
 import java.util.Set;
