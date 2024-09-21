@@ -10,18 +10,6 @@ public interface IVpn {
     String Connector(int port) throws IOException;
 
     /**
-     * 频道掉线
-     */
-
-    void Disconnect();
-
-    /**
-     * 异常掉线
-     */
-
-    void DisconnectedException();
-
-    /**
      * 状态
      * 0 => connected
      * 1 => failed to connect

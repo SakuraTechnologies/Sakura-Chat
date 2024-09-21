@@ -1,6 +1,7 @@
 package sakuratech.chat.network;
 
 import sakuratech.chat.crypt.Cryptor;
+import sakuratech.chat.database.Database;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -14,6 +15,10 @@ import static sakuratech.chat.network.WebSocket.handleAccept;
 import static sakuratech.chat.network.WebSocket.handleRead;
 
 public class VPNMain extends Cryptor implements IVpn {
+
+    // Input your SQLite3 name here
+    private static final String SQLName = "";
+
     /**
      * 连接到特定频道
      * 自实现WEBSOCKET服务器
@@ -33,37 +38,18 @@ public class VPNMain extends Cryptor implements IVpn {
             while (iterator.hasNext()) {
                 SelectionKey key = iterator.next();
                 if (key.isAcceptable()) {
-                    int StateCountable = (int) State(0);
                     // 发送允许请求
                     handleAccept(serverSocketChannel, selector);
-
+                    State(0);
+                    Database sqlitedb = new Database();
+                    sqlitedb.Connector(SQLName);
                 } else if (key.isReadable()) {
-                    int StateCountable = (int) State(0);
-                    // 调用HandleRead
                     handleRead(key);
                     State(0);
                 }
                 iterator.remove();
             }
         }
-    }
-
-    /**
-     * 频道掉线
-     */
-    @Override
-    public void Disconnect() {
-        // TODO!
-        // 好吧或许我们以后不用做这个功能
-    }
-
-    /**
-     * 异常掉线
-     */
-    @Override
-    public void DisconnectedException() {
-        // TODO!
-        // 好吧也许这个也是
     }
 
     /**
