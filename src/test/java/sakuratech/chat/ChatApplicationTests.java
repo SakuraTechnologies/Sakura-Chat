@@ -15,23 +15,36 @@ class ChatApplicationTests {
 
 	/*@Test
 	void test() throws Exception {
-		Cryptor crypt;
-		KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
-		keyGenerator.init(256, new SecureRandom());
-		SecretKey secretKey = keyGenerator.generateKey();
+	Cryptor crypt;
+	KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+	keyGenerator.init(256, new SecureRandom());
+	SecretKey secretKey = keyGenerator.generateKey();
 
-		byte[] key = secretKey.getEncoded();
-		System.out.println("AES 密钥：" + Base64.getEncoder().encodeToString(key));
+	byte[] key = secretKey.getEncoded();
+	System.out.println("AES 密钥：" + Base64.getEncoder().encodeToString(key));
 
-		String content = "Hello springdoc.cn习近平我草你妈";
-		System.out.println("原文：" + content);
+	String content = "Hello springdoc.cn习近平我草你妈";
+	System.out.println("原文：" + content);
 
-		byte[] ret = encode(key, content.getBytes());
-		System.out.println("加密后的密文：" + Base64.getEncoder().encodeToString(ret));
+	byte[] ret = encode(key, content.getBytes());
+	System.out.println("加密后的密文：" + Base64.getEncoder().encodeToString(ret));
 
-		byte[] raw = decode(key, ret);
-		System.out.println("解密后的原文：" + new String(raw));
+	byte[] raw = decode(key, ret);
+	System.out.println("解密后的原文：" + new String(raw));
 	}*/
 
+	/**
+	 * 数据库测试
+	 */
 
+	/**@Test
+	void connectortest() throws SQLException {
+	Database db;
+	db = new Database();
+	Connection connection1 = db.Connector("D:\\SakanaChar\\chat\\src\\test\\java\\sakuratech\\chat\\SQLite3.db");
+		db.Insert(connection1, "hello", "world");
+
+
+	}*/
+	// 不知道为什么不好用
 }

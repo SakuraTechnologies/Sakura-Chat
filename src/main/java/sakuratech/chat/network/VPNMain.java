@@ -1,30 +1,31 @@
 package sakuratech.chat.network;
 
 import sakuratech.chat.crypt.Cryptor;
-import sakuratech.chat.database.Database;
+import sakuratech.chat.database.PostgreSQLController;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.Set;
 
 import static sakuratech.chat.network.WebSocket.handleAccept;
 import static sakuratech.chat.network.WebSocket.handleRead;
 
-public class VPNMain extends Cryptor implements IVpn {
-
-    // Input your SQLite3 name here
-    private static final String SQLName = "./SQLite3.db";
+public class VPNMain extends Cryptor implements IVpn, DBInfo{
 
     /**
      * 连接到特定频道
      * 自实现WEBSOCKET服务器
      */
     @Override
-    public String Connector(int port) throws IOException {
+    // webSocket
+    // 用于和前端进行频道交互
+    public String Connector(int port) throws IOException, SQLException {
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
         serverSocketChannel.socket().bind(new InetSocketAddress(port));
         serverSocketChannel.configureBlocking(false);
@@ -41,11 +42,12 @@ public class VPNMain extends Cryptor implements IVpn {
                     // 发送允许请求
                     handleAccept(serverSocketChannel, selector);
                     State(0);
-                    Database sqlitedb = new Database();
-                    sqlitedb.Connector(SQLName);
                 } else if (key.isReadable()) {
-                    handleRead(key);
+                    String msg = handleRead(key);
                     State(0);
+                    PostgreSQLController db = new PostgreSQLController();
+                    Connection connect = db.Connector(DB_URL, DB_USER, DB_PASSWORD);
+                    db.Insert(connect, "test", msg);
                 }
                 iterator.remove();
             }
