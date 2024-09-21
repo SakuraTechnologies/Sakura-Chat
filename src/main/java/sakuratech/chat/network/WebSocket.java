@@ -9,7 +9,7 @@ import java.nio.channels.SocketChannel;
 
 public class WebSocket {
 
-    public static void handleAccept(ServerSocketChannel serverSocketChannel, Selector selector) throws IOException {
+    public static void HandleAccept(ServerSocketChannel serverSocketChannel, Selector selector) throws IOException {
         SocketChannel socketChannel = serverSocketChannel.accept();
         socketChannel.configureBlocking(false);
         socketChannel.register(selector, SelectionKey.OP_READ);
@@ -17,10 +17,10 @@ public class WebSocket {
         System.out.println("New client connected: " + socketChannel.getRemoteAddress());
 
         // Send handshake response
-        sendHandshakeResponse(socketChannel);
+        SendHandshakeResponse(socketChannel);
     }
 
-    public static String handleRead(SelectionKey key) throws IOException {
+    public static String HandleRead(SelectionKey key) throws IOException {
         SocketChannel socketChannel = (SocketChannel) key.channel();
         ByteBuffer buffer = ByteBuffer.allocate(1024);
 
@@ -37,7 +37,7 @@ public class WebSocket {
         System.out.println("Received message from client: " + message);
 
         // Extract username and message content
-        String[] result = extractUsernameAndContent(message);
+        String[] result = ExtractUsernameAndContent(message);
         if (result == null || result.length != 2) {
             System.out.println("Invalid message format: " + message);
             return "";
@@ -47,11 +47,11 @@ public class WebSocket {
 
         // Send response back to the client with username
         String response = "Message received from " + username + ": " + content;
-        sendResponse(socketChannel, response);
+        SendResponse(socketChannel, response);
         return message;
     }
 
-    private static String[] extractUsernameAndContent(String message) {
+    static String[] ExtractUsernameAndContent(String message) {
         String[] parts = message.split(": ");
         if (parts.length != 2) {
             return null;
@@ -59,7 +59,7 @@ public class WebSocket {
         return parts;
     }
 
-    private static void sendHandshakeResponse(SocketChannel socketChannel) throws IOException {
+    private static void SendHandshakeResponse(SocketChannel socketChannel) throws IOException {
         String response = "HTTP/1.1 101 Switching Protocols\r\n" +
                 "Upgrade: websocket\r\n" +
                 "Connection: Upgrade\r\n" +
@@ -68,7 +68,7 @@ public class WebSocket {
         socketChannel.write(ByteBuffer.wrap(response.getBytes()));
     }
 
-    private static void sendResponse(SocketChannel socketChannel, String message) throws IOException {
+    private static void SendResponse(SocketChannel socketChannel, String message) throws IOException {
         byte[] bytes = message.getBytes();
         ByteBuffer buffer = ByteBuffer.allocate(bytes.length);
         buffer.put(bytes);

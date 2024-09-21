@@ -2,8 +2,10 @@ package sakuratech.chat.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.Arrays;
+import java.util.Base64;
 
 public class PostgreSQLController implements PostgreSQL {
 
@@ -13,13 +15,15 @@ public class PostgreSQLController implements PostgreSQL {
     }
 
     @Override
-    public void Insert(Connection Connector, String name, String Msg) {
-        try {
-            Statement statement = Connector.createStatement();
-            String sql = "INSERT INTO chat(name, msg) VALUES ('" + name + "','" + Msg + "')";
-            statement.executeUpdate(sql);
+    public void Insert(Connection conn, String Name, String Msg, byte[]DecoderKey) {
+        try (PreparedStatement pstmt = conn.prepareStatement("INSERT INTO chat(Name, Msg, DecoderKey) VALUES (?, ?, ?)")) {
+            pstmt.setString(1, Name);
+            pstmt.setString(2, Msg);
+            pstmt.setString(3, Base64.getEncoder().encodeToString(DecoderKey));
+            pstmt.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            // 更详细的错误处理
+            System.err.println("Failed to insert record: " + e.getMessage());
         }
     }
 }

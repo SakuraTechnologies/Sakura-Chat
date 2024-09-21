@@ -10,9 +10,8 @@ public abstract class Cryptor {
      * @param key		密钥
      * @param data		加密数据
      * @return			密文
-     * @throws Exception
      */
-    public static byte[] encode(byte[] key, byte[] data) throws Exception {
+    public static byte[] Encode(byte[] key, byte[] data) throws Exception {
         SecretKeySpec secretKeySpec = new SecretKeySpec(key, "AES");
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
         cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec);
@@ -24,9 +23,8 @@ public abstract class Cryptor {
      * @param key		密钥
      * @param data		密文
      * @return			解密后的数据
-     * @throws Exception
      */
-    public static byte[] decode(byte[] key, byte[] data) throws Exception {
+    public static byte[] Decode(byte[] key, byte[] data) throws Exception {
         SecretKeySpec secretKeySpec = new SecretKeySpec(key, "AES");
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
         cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
