@@ -1,13 +1,13 @@
 package sakuratech.chat.database;
 
-import sakuratech.chat.network.VPNMain;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-public class Database implements IDatabase {
-
+public class Database implements IDatabase, IDatabaseController {
 
     /**
      * 连接到SQLITE3
@@ -17,7 +17,7 @@ public class Database implements IDatabase {
     @Override
     public void Connector(String YourDBLink) {
         Connection connection = null;
-        try{
+        try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection(YourDBLink);
         } catch (ClassNotFoundException | SQLException e) {
@@ -33,13 +33,24 @@ public class Database implements IDatabase {
         }
     }
 
-    /**
-     * 与SQLITE3
-     * <p>
-     * 为什么要写这个?
-     * 因为要搭配State实现彻底中断写入的一个效果
-     */
     @Override
-    public void Disconnect() {
+    public void Insert(Connection connection, String name, String Msg) throws SQLException {
+        Connection connector;
+        connector = (Connection) connection.createStatement();
+        PreparedStatement statement = connector.prepareStatement(
+                "insert into chat(chat) values(? ? ?)"
+        );
+        statement.setString(1, name);
+        statement.setString(2, Msg);
+        statement.executeUpdate();
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat();
+        String Date = simpleDateFormat.format(date);
+        statement.setString(3, Date);
+    }
+
+    @Override
+    public void Delete(Connection connection) {
+        // TODO!
     }
 }

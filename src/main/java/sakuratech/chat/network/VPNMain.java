@@ -17,7 +17,7 @@ import static sakuratech.chat.network.WebSocket.handleRead;
 public class VPNMain extends Cryptor implements IVpn {
 
     // Input your SQLite3 name here
-    private static final String SQLName = "";
+    private static final String SQLName = "./SQLite3.db";
 
     /**
      * 连接到特定频道
