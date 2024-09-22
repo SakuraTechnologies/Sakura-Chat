@@ -7,8 +7,9 @@ import java.util.Map;
 public class ChannelManager {
     private final Map<String, SelectionKey> channelToKeyMap = new HashMap<>();
 
-    public void addChannel(String channelId, SelectionKey key) {
+    public boolean addChannel(String channelId, SelectionKey key) {
         channelToKeyMap.put(channelId, key);
+        return false;
     }
 
     public SelectionKey getKeyForChannel(String channelId) {

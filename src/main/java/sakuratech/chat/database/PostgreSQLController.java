@@ -15,8 +15,8 @@ public class PostgreSQLController implements PostgreSQL {
     }
 
     @Override
-    public void Insert(Connection conn, String Name, String Msg, byte[]DecoderKey) {
-        try (PreparedStatement pstmt = conn.prepareStatement("INSERT INTO chat(Name, Msg, DecoderKey) VALUES (?, ?, ?)")) {
+    public void Insert(Connection conn, String Name, String Msg, byte[]DecoderKey, byte[]DecoderMsg) {
+        try (PreparedStatement pstmt = conn.prepareStatement("INSERT INTO chat(Name, Msg, DecoderKey, DecoderMsg) VALUES (?, ?, ?, ?)")) {
             pstmt.setString(1, Name);
             pstmt.setString(2, Msg);
             pstmt.setString(3, Base64.getEncoder().encodeToString(DecoderKey));

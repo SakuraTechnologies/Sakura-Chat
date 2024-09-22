@@ -23,7 +23,10 @@ public class WebSocket {
 
         // Generate a unique channel ID
         String channelId = generateChannelId();
-        channelManager.addChannel(channelId, socketChannel.keyFor(selector));
+        while (!channelManager.addChannel(channelId, socketChannel.keyFor(selector))) {
+            // 如果频道ID已存在，重新生成
+            channelId = generateChannelId();
+        }
     }
 
     public static String HandleRead(SelectionKey key) throws IOException {
@@ -109,6 +112,6 @@ public class WebSocket {
     private static String generateChannelId() {
         long timestamp = System.currentTimeMillis();
         int randomNum = (int) (Math.random() * Integer.MAX_VALUE);
-        return "CH" + timestamp + "-" + randomNum;
+        return "SAKURACHATTING" + timestamp + "-" + randomNum;
     }
 }

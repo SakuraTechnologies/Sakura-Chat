@@ -4,12 +4,16 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
+import static sakuratech.chat.network.VPNMain.SetPortVal;
+
 public interface IVpn {
+
+    static int Port = SetPortVal();
 
     /**
      * 连接到特定频道
      */
-    String Connector(int port) throws Exception;
+    String CreateChattingRoomWS() throws Exception;
 
     /**
      * 状态
